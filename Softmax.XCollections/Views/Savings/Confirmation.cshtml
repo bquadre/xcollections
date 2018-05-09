@@ -1,0 +1,147 @@
+﻿@using System.Globalization
+@using Softmax.XCollections.Data.Enums
+@model IEnumerable<Softmax.XCollections.Models.DepositConfirmModel>
+@{
+    ViewBag.Title = "Confirmations List";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - <i><strong>@ViewData["RecordCount"]</strong> Records</i>
+
+        </div>
+        <div class="card-body">
+            <form asp-action="Confirmation" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        Search: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default btn-sm" /> |
+                        <a asp-action="Confirmation">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Confirmation" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date</a>
+                        </th>
+                        <th>
+                            Account Number
+                        </th>
+                        <th>
+                            Customer
+                        </th>
+                        <th>
+                            <a asp-action="Confirmation" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Supervisor </a>
+                        </th>
+
+                        <th>
+                            Transaction
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.DateCreated
+                        </td>
+                        <td>
+                            @item.Customer.AspNetUsers.UniqueNumber
+                        </td>
+                        <td>
+                            @item.Customer.AspNetUsers.FirstName @item.Customer.AspNetUsers.OtherName @item.Customer.AspNetUsers.LastName
+                        </td>
+
+                        <td>
+                            @item.Employee.AspNetUsers.FirstName @item.Employee.AspNetUsers.LastName
+                        </td>
+
+                        <td>
+                            @item.Deposit.TransactionCode
+
+                        </td>
+
+
+                        <td>
+                            @if (item.Deposit.TransactionCode == TransactionCode.Deposit)
+                    {
+                        <span class="text-success">@item.Deposit.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</span>
+            }
+            else
+            {
+                <span class="text-danger">@item.Deposit.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</span>
+    }
+
+
+                        </td>
+                        <td>
+
+
+                            @if (item.Deposit.StatusCode == StatusCode.Declined)
+                    {
+                        <span class="btn btn-outline-danger btn-sm">Declined</span>
+            }
+
+            else
+            {
+                <span class="btn btn-outline-success btn-sm">Confirmed</span>
+    }
+                        </td>
+
+
+                    </tr>
+
+        }
+    }
+                </tbody>
+            </table>
+            @{
+
+        var PaginatedModel = (PaginatedList<DepositConfirmModel>)Model;
+
+        string prevDisabled = !PaginatedModel.HasPreviousPage ? "disabled" : "";
+
+        string nextDisabled = !PaginatedModel.HasNextPage ? "disabled" : "";
+
+            }
+
+            <a asp-action="Confirmation"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @prevDisabled">
+
+                Previous
+
+            </a>
+
+            <a asp-action="Confirmation"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @nextDisabled">
+
+                Next
+
+            </a>
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

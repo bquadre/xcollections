@@ -1,0 +1,68 @@
+﻿@model Softmax.XCollections.Models.BranchModel
+@{
+    ViewBag.Title = "Edit Branch";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <h2>@ViewBag.Title</h2>
+        @using (Html.BeginForm("Save", "Branches", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.BranchId)
+        @Html.HiddenFor(model => model.BranchCode)
+        @Html.HiddenFor(model => model.DateCreated)
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Location, new { @class = "form-control", placeholder = "Enter Location" })
+                    @Html.ValidationMessageFor(model => model.Location)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Enter Address" })
+                    @Html.ValidationMessageFor(model => model.Address)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.City, new { @class = "form-control", placeholder = "Enter Address" })
+                    @Html.ValidationMessageFor(model => model.City)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StateCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.StateCode, new SelectList(ViewBag.states, "Value", "Text"), "select", new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(model => model.IsActive)
+                    @Html.ValidationMessageFor(model => model.IsActive)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                    @Html.ActionLink("Cancel", "Index", null, null, new { @class = "btn btn-default-outline" })
+                </div>
+            </div>
+        </div>
+}
+
+    </div>
+    <div class="col-md-4"></div>
+</div>

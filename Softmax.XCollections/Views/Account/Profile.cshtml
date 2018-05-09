@@ -1,0 +1,130 @@
+﻿@using Softmax.XCollections.Controllers
+@model Softmax.XCollections.Models.UserModel
+@{
+    ViewBag.Title = "My Profile";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <h2>@ViewBag.Title</h2>
+        @using (Html.BeginForm("Profile", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.UniqueNumber)
+            @Html.HiddenFor(model => model.DateCreated)
+            @Html.HiddenFor(model => model.IsActive)
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BranchId, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.BranchId, new SelectList(ViewBag.Branches, "Value", "Text"), "--Select--", new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserCode, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.UserCode, new SelectList(ViewBag.UserCodes, "Value", "Text"), "--Select--", new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(model => model.UserCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GenderCode, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.GenderCode, new SelectList(ViewBag.GenderCodes, "Value", "Text"), "select", new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(model => model.GenderCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "Enter First Name" })
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Enter Last Name" })
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OtherName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.OtherName, new { @class = "form-control", placeholder = "Enter Last Name" })
+                        @Html.ValidationMessageFor(model => model.OtherName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "Enter Mobile Number1" })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MobileNumber, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.MobileNumber, new { @class = "form-control", placeholder = "Enter Mobile Number2" })
+                        @Html.ValidationMessageFor(model => model.MobileNumber)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter Email Address" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Occupation, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Occupation, new { @class = "form-control", placeholder = "Enter Designation/Occupation" })
+                        @Html.ValidationMessageFor(model => model.Occupation)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Enter Contact Address" })
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NearestBusStop, new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.NearestBusStop, new { @class = "form-control", placeholder = "Enter Nearest Bus Stop" })
+                        @Html.ValidationMessageFor(model => model.NearestBusStop)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-5">
+        <div class="col-md-12">
+            @{
+                var imagePath = "/uploads/photos/" + Model.Photo;
+            }
+            @if (Model.Photo == null)
+            {
+                <img src="/images/photo.png" class="img-responsive img-thumbnail" alt="Passport" />
+            }
+            else
+            {
+                <img src="@imagePath" class="img-responsive img-thumbnail" alt="Passport" />
+            }<br /><br />
+        </div>
+    </div>
+</div>

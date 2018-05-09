@@ -1,0 +1,305 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Softmax.XCollections.Models
+@using Softmax.XCollections.Data
+
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - XCollections</title>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap-grid.min.css" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap-reboot.min.css" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="~/vendor/datatables/dataTables.bootstrap4.css" />
+        <link rel="stylesheet" href="~/css/selectpicker-bootstrap4.css"/>
+        <link rel="stylesheet" href="~/css/main.css"/>
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <a class="navbar-brand" href="/">XCollections - SBC</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+    @{
+        var user = new ApplicationUser();
+        var identity = User.Identity.Name;
+        if (identity != null)
+        {
+            user = UserManager.Users.FirstOrDefault(x => x.UserName == identity);
+        }
+        if (user != null && !user.IsTempPassword)
+        {
+            <ul class="navbar-nav navbar-sidenav" id="sbcAccordion">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link" href="/">
+                        <i class="fa fa-fw fa-dashboard"></i>
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+                @if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Admin"))
+                {
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settingsComponents" data-parent="#sbcAccordion">
+                        <i class="fa fa-fw fa-wrench"></i>
+                        <span class="nav-link-text">Administration</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="settingsComponents">
+                        <li>
+                            @Html.ActionLink("Branches", "Index", "Branches")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Products", "Index", "Products")
+                        </li>
+
+                        <li>
+                            @Html.ActionLink("Users", "Index", "Account")
+                        </li>
+
+                        <li>
+                            @Html.ActionLink("Bulk Uploads", "Index", "Uploads")
+                        </li>
+
+                    </ul>
+                </li>
+               
+                }
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Savings">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#depositsComponents" data-parent="#sbcAccordion">
+                        <i class="fa fa-fw fa-bank"></i>
+                        <span class="nav-link-text">Manage Savings</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="depositsComponents">
+                        <li>
+                            @Html.ActionLink("Savings Customers", "Index", "Savings")
+                        </li>
+                        @if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Manager"))
+    {
+                    <li>
+                        @Html.ActionLink("Confirmation Requests", "ConfirmationRequest", "Savings")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Confirmations", "Confirmation", "Savings")
+                    </li>
+}
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Loans">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#loanComponents" data-parent="#sbcAccordion">
+                        <i class="fa fa-fw fa-money"></i>
+                        <span class="nav-link-text">Manage Loans</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="loanComponents">
+                        <li>
+                            @Html.ActionLink("Loan Customers", "Index", "Loans")
+                        </li>
+                        
+                        @if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Manager"))
+    {
+                        <li>
+                            @Html.ActionLink("Loan Approval Requests", "ApprovalRequest", "Loans")
+                        </li>
+                     <li>
+                        @Html.ActionLink("Loan Approvals", "Approval", "Loans")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Refund Comfirmations", "Confirmation", "Loans")
+                    </li>
+}
+                    </ul>
+                </li>
+    @if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Admin"))
+    {
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Savings Reports">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#savingsreportComponents" data-parent="#sbcAccordion">
+                <i class="fa fa-fw fa-bar-chart"></i>
+                <span class="nav-link-text"> Savings Reports </span>
+            </a>
+            <ul class="sidenav-second-level collapse" id="savingsreportComponents">
+                <li>
+                    @Html.ActionLink("Daily", "DailySavingsSummary", "Reports")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Monthly", "MonthlySavingsSummary", "Reports")
+                </li>
+                <li>
+                    @Html.ActionLink("Yearly", "YearlySavingsSummary", "Reports")
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Reports">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#loansreportComponents" data-parent="#sbcAccordion">
+                <i class="fa fa-fw fa-bar-chart"></i>
+                <span class="nav-link-text"> Loans Reports </span>
+            </a>
+            <ul class="sidenav-second-level collapse" id="loansreportComponents">
+                <li>
+                    @Html.ActionLink("Monthly", "MonthlyLoansSummary", "Reports")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Yearly", "YearlyLoansSummary", "Reports")
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Reports">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#refundsreportComponents" data-parent="#sbcAccordion">
+                <i class="fa fa-fw fa-bar-chart"></i>
+                <span class="nav-link-text"> Refunds Reports </span>
+            </a>
+            <ul class="sidenav-second-level collapse" id="refundsreportComponents">
+                <li>
+                    @Html.ActionLink("Daily", "DailyRefundsSummary", "Reports")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Monthly", "MonthlyRefundsSummary", "Reports")
+                </li>
+                <li>
+                    @Html.ActionLink("Yearly", "YearlyRefundsSummary", "Reports")
+                </li>
+               
+            </ul>
+        </li>
+    }
+            </ul>
+        }
+    }
+            @*<ul class="navbar-nav sidenav-toggler">
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-fw fa-angle-left"></i>
+                    </a>
+                </li>
+            </ul>*@
+            <ul class="navbar-nav ml-auto">
+                @*<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-envelope"></i>
+                        <span class="d-lg-none">
+                            Credits
+                            <span class="badge badge-pill badge-primary">12 SMS</span>
+                        </span>
+                        <span class="indicator text-primary d-none d-lg-block">
+                            <i class="fa fa-fw fa-circle"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+                        <h6 class="dropdown-header">New Messages:</h6>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <strong>David Miller</strong>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <strong>Jane Smith</strong>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <strong>John Doe</strong>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item small" href="#">View all messages</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-bell"></i>
+                        <span class="d-lg-none">
+                            Alerts
+                            <span class="badge badge-pill badge-warning">6 New</span>
+                        </span>
+                        <span class="indicator text-warning d-none d-lg-block">
+                            <i class="fa fa-fw fa-circle"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">New Alerts:</h6>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <span class="text-success">
+                                <strong>
+                                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update
+                                </strong>
+                            </span>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <span class="text-danger">
+                                <strong>
+                                    <i class="fa fa-long-arrow-down fa-fw"></i>Status Update
+                                </strong>
+                            </span>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <span class="text-success">
+                                <strong>
+                                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update
+                                </strong>
+                            </span>
+                            <span class="small float-right text-muted">11:21 AM</span>
+                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item small" href="#">View all alerts</a>
+                    </div>
+                </li>*@
+                <li class="nav-item">
+                    @Html.Partial("_LoginPartial")
+                </li>
+
+            </ul>
+      
+    </div>
+    </nav>
+
+<div class="content-wrapper">
+    @RenderBody()
+        
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>Copyright © Standard Benefit Cooperative 2017</small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+       
+</div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="~/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="~/js/main.min.js"></script>
+    <script src="~/js/main-datatables.min.js"></script>
+    <script src="~/js/main-charts.min.js"></script>
+    <script src="~/js/selectpicker-bootstrap4.js"></script>
+ </body>
+</html>

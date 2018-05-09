@@ -1,0 +1,66 @@
+2018-05-07T16:28:11.3998832+01:00 0HLDK5SI9KFFO:00000001 [INF] Request starting HTTP/1.1 GET http://localhost:44318/   (ca22a1cb)
+2018-05-07T16:28:11.4462287+01:00 0HLDK5SI9KFFO:00000001 [INF] AuthenticationScheme: "Identity.Application" was successfully authenticated. (1805f3b3)
+2018-05-07T16:28:11.5362236+01:00 0HLDK5SI9KFFO:00000001 [INF] Authorization was successful for user: "3864652". (d7eb274a)
+2018-05-07T16:28:11.5414533+01:00 0HLDK5SI9KFFO:00000001 [INF] Entity Framework Core "2.0.0-rtm-26452" initialized '"ApplicationDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None" (9958f5bb)
+2018-05-07T16:28:11.5553457+01:00 0HLDK5SI9KFFO:00000001 [INF] Executing action method "Softmax.XCollections.Controllers.HomeController.Index (Softmax.XCollections)" with arguments (null) - ModelState is Valid (ba7f4ac2)
+2018-05-07T16:28:11.8051107+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("236"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:12.0450193+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("235"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:12.0551888+01:00 0HLDK5SI9KFFO:00000001 [ERR] Value cannot be null.
+Parameter name: user  (321a234b)
+2018-05-07T16:28:12.2907397+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("234"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:12.5293899+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("238"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:12.5301569+01:00 0HLDK5SI9KFFO:00000001 [ERR] Value cannot be null.
+Parameter name: user  (321a234b)
+2018-05-07T16:28:12.7663817+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("235"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:13.0009467+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("234"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:13.0015504+01:00 0HLDK5SI9KFFO:00000001 [ERR] Value cannot be null.
+Parameter name: user  (321a234b)
+2018-05-07T16:28:13.2402415+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("234"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:13.4757661+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("234"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:13.4782287+01:00 0HLDK5SI9KFFO:00000001 [ERR] Value cannot be null.
+Parameter name: user  (321a234b)
+2018-05-07T16:28:13.7251548+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("235"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:13.9608930+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("234"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Address], [u].[BranchId], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[GenderCode], [u].[IsActive], [u].[IsTempPassword], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[MobileNumber], [u].[NearestBusStop], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[Occupation], [u].[OtherName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[Photo], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UniqueNumber], [u].[UserCode], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2018-05-07T16:28:13.9634745+01:00 0HLDK5SI9KFFO:00000001 [ERR] Value cannot be null.
+Parameter name: user  (321a234b)
+2018-05-07T16:28:15.6911414+01:00 0HLDK5SI9KFFO:00000001 [INF] Executing ViewResult, running view at path "/Views/Home/Index.cshtml". (9707eebe)
+2018-05-07T16:28:16.7497100+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("242"ms) [Parameters=["@__identity_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [x].[Id], [x].[AccessFailedCount], [x].[Address], [x].[BranchId], [x].[ConcurrencyStamp], [x].[DateCreated], [x].[Email], [x].[EmailConfirmed], [x].[FirstName], [x].[GenderCode], [x].[IsActive], [x].[IsTempPassword], [x].[LastName], [x].[LockoutEnabled], [x].[LockoutEnd], [x].[MobileNumber], [x].[NearestBusStop], [x].[NormalizedEmail], [x].[NormalizedUserName], [x].[Occupation], [x].[OtherName], [x].[PasswordHash], [x].[PhoneNumber], [x].[PhoneNumberConfirmed], [x].[Photo], [x].[SecurityStamp], [x].[TwoFactorEnabled], [x].[UniqueNumber], [x].[UserCode], [x].[UserName]
+FROM [AspNetUsers] AS [x]
+WHERE [x].[UserName] = @__identity_0" (0723d8ff)
+2018-05-07T16:28:17.2344748+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed DbCommand ("236"ms) [Parameters=["@__User_Identity_Name_0='?' (Size = 256)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [x].[Id], [x].[AccessFailedCount], [x].[Address], [x].[BranchId], [x].[ConcurrencyStamp], [x].[DateCreated], [x].[Email], [x].[EmailConfirmed], [x].[FirstName], [x].[GenderCode], [x].[IsActive], [x].[IsTempPassword], [x].[LastName], [x].[LockoutEnabled], [x].[LockoutEnd], [x].[MobileNumber], [x].[NearestBusStop], [x].[NormalizedEmail], [x].[NormalizedUserName], [x].[Occupation], [x].[OtherName], [x].[PasswordHash], [x].[PhoneNumber], [x].[PhoneNumberConfirmed], [x].[Photo], [x].[SecurityStamp], [x].[TwoFactorEnabled], [x].[UniqueNumber], [x].[UserCode], [x].[UserName]
+FROM [AspNetUsers] AS [x]
+WHERE [x].[UserName] = @__User_Identity_Name_0" (0723d8ff)
+2018-05-07T16:28:17.2593418+01:00 0HLDK5SI9KFFO:00000001 [INF] Executed action "Softmax.XCollections.Controllers.HomeController.Index (Softmax.XCollections)" in 5725.0965ms (afa2e885)
+2018-05-07T16:28:17.2624920+01:00 0HLDK5SI9KFFO:00000001 [INF] Request finished in 5872.7888ms 200 text/html; charset=utf-8 (791a596a)

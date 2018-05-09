@@ -1,0 +1,32 @@
+﻿@model Softmax.XCollections.Models.AccountViewModels.UserRoleViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h2>@Model.Name - Roles </h2>
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+              
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id) 
+                <div class="form-group">
+                        @foreach (var item in Model.RolesList)
+                        {
+                            <p> <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" />  @item.Value </p>
+                        }
+                </div>
+
+                <div class="form-group">
+                    
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        @Html.ActionLink("Cancel", "Index", "Account", null, new {@class="btn btn-default"})
+                  
+                </div>
+            </div>
+        }  
+    </div>
+    <div class="col-md-4"></div>
+</div>

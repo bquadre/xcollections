@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Softmax.XCollections", "XCollections\Softmax.XCollections.csproj", "{D126DEE3-2BA0-402C-90E7-51F2FB9B5967}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D126DEE3-2BA0-402C-90E7-51F2FB9B5967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D126DEE3-2BA0-402C-90E7-51F2FB9B5967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D126DEE3-2BA0-402C-90E7-51F2FB9B5967}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D126DEE3-2BA0-402C-90E7-51F2FB9B5967}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42728022-4B0F-4A2D-867F-5ABE4FFD11B6}
+	EndGlobalSection
+EndGlobal

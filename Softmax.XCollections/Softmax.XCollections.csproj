@@ -1,0 +1,136 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-SBC.Collections-A04A5CBF-9D79-4C1C-BC46-42B8FCA0A1C7</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\RolesAdmin\**" />
+    <Compile Remove="Views\UsersAdmin\**" />
+    <Compile Remove="wwwroot\lib\**" />
+    <Compile Remove="wwwroot\vendor\bootstrap\**" />
+    <Compile Remove="wwwroot\vendor\chart.js\**" />
+    <Compile Remove="wwwroot\vendor\font-awesome\**" />
+    <Compile Remove="wwwroot\vendor\jquery-easing\**" />
+    <Compile Remove="wwwroot\vendor\jquery\**" />
+    <Content Remove="Views\RolesAdmin\**" />
+    <Content Remove="Views\UsersAdmin\**" />
+    <Content Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\vendor\bootstrap\**" />
+    <Content Remove="wwwroot\vendor\chart.js\**" />
+    <Content Remove="wwwroot\vendor\font-awesome\**" />
+    <Content Remove="wwwroot\vendor\jquery-easing\**" />
+    <Content Remove="wwwroot\vendor\jquery\**" />
+    <EmbeddedResource Remove="Views\RolesAdmin\**" />
+    <EmbeddedResource Remove="Views\UsersAdmin\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="wwwroot\vendor\bootstrap\**" />
+    <EmbeddedResource Remove="wwwroot\vendor\chart.js\**" />
+    <EmbeddedResource Remove="wwwroot\vendor\font-awesome\**" />
+    <EmbeddedResource Remove="wwwroot\vendor\jquery-easing\**" />
+    <EmbeddedResource Remove="wwwroot\vendor\jquery\**" />
+    <None Remove="Views\RolesAdmin\**" />
+    <None Remove="Views\UsersAdmin\**" />
+    <None Remove="wwwroot\lib\**" />
+    <None Remove="wwwroot\vendor\bootstrap\**" />
+    <None Remove="wwwroot\vendor\chart.js\**" />
+    <None Remove="wwwroot\vendor\font-awesome\**" />
+    <None Remove="wwwroot\vendor\jquery-easing\**" />
+    <None Remove="wwwroot\vendor\jquery\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\CustomersController.cs" />
+    <Compile Remove="Controllers\DepositConfirmsController.cs" />
+    <Compile Remove="Controllers\DepositsController.cs" />
+    <Compile Remove="Controllers\DesignationsController.cs" />
+    <Compile Remove="Controllers\EmployeesController.cs" />
+    <Compile Remove="Controllers\WithdrawalsController.cs" />
+    <Compile Remove="Data\Contracts\IDesignationRepository.cs" />
+    <Compile Remove="Data\Contracts\IProductRepository.cs" />
+    <Compile Remove="Data\Contracts\IRepositoryUnitOfWork.cs" />
+    <Compile Remove="Data\Contracts\IUnitOfWork.cs" />
+    <Compile Remove="Data\Repositories\DesignationRepository.cs" />
+    <Compile Remove="Data\Repositories\ProductRepository.cs" />
+    <Compile Remove="Data\Repositories\RepositoryUnitOfWork.cs" />
+    <Compile Remove="Data\Repositories\Repositoryxxxx.cs" />
+    <Compile Remove="Utilities\Logger.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Account\Customer.cshtml" />
+    <Content Remove="Views\Account\Employee.cshtml" />
+    <Content Remove="Views\Account\ExternalLogin.cshtml" />
+    <Content Remove="Views\Account\Loan.cshtml" />
+    <Content Remove="Views\Account\LoginWith2fa.cshtml" />
+    <Content Remove="Views\Account\LoginWithRecoveryCode.cshtml" />
+    <Content Remove="Views\Account\ResetPassword.cshtml" />
+    <Content Remove="Views\Account\Savings.cshtml" />
+    <Content Remove="Views\Loans\Approvals - Copy %282%29.cshtml" />
+    <Content Remove="Views\Reports\Loans.cshtml" />
+    <Content Remove="Views\Reports\Savings.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Remove="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Remove="Properties\PublishProfiles\CustomProfile2.pubxml" />
+    <None Remove="Properties\PublishProfiles\Default Settings.pubxml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
+    <PackageReference Include="bootstrap-select" Version="1.12.4" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Remotion.Linq" Version="2.1.2" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
+    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Extensions\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions\ResourceDesignation.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceDesignation.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Extensions\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Extensions\ResourceDesignation.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceDesignation.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Logs\" />
+    <Folder Include="wwwroot\uploads\csv\" />
+    <Folder Include="wwwroot\uploads\photos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Reports\_SavingsDailyTable.cshtml" />
+    <None Include="wwwroot\docs\sbc_users.csv" />
+    <None Include="wwwroot\docs\sbc_users_deposits.csv" />
+  </ItemGroup>
+
+</Project>

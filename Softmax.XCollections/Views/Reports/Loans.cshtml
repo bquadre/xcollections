@@ -1,0 +1,28 @@
+﻿    @{
+        ViewBag.Title = "Loans Report";
+    }
+ 
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - Monthly
+        </div>
+        <div class="card-body">
+            @Html.Partial("_LoansMonthlyTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - Yearly
+        </div>
+        <div class="card-body">
+            @Html.Partial("_LoansYearlyTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

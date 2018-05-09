@@ -1,0 +1,275 @@
+﻿@using System.Globalization
+@using Softmax.XCollections.Data.Enums
+@model Softmax.XCollections.Models.UserModel
+@{
+    ViewBag.Title = "User Details";
+}
+
+@inject UserManager<ApplicationUser> UserManager
+<div class="container" style="padding-top: 45px">
+<div class="row">
+    <div class="col-md-7"> 
+        <h2>Profile</h2> 
+        <table class="table">
+            <tr>
+                <td>Account Number</td>
+                <td>@Model.UniqueNumber</td>
+            </tr>
+            <tr>
+                <td>User Type</td>
+                <td>@Model.UserCode</td>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>@Model.LastName @Model.FirstName @Model.OtherName</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>@Model.GenderCode</td>
+            </tr>
+
+            <tr>
+                <td>Occupation</td>
+                <td>@Model.Occupation</td>
+            </tr>
+
+            <tr>
+                <td>Address</td>
+                <td>@Model.Address</td>
+            </tr>
+
+            <tr>
+                <td>Nearest Bus Stop</td>
+                <td>@Model.NearestBusStop</td>
+            </tr>
+
+                    
+
+        </table>
+    </div>
+    <div class="col-md-5" style="text-align:center ">
+        @{
+            var imagePath = "/uploads/photos/" + @Model.Photo;
+        }
+        @if (@Model.Photo == null)
+        {
+            <img src="/images/photo.png" class="img-responsive img-thumbnail" alt="Passport"/>
+        }
+        else
+        {
+            <img src="@imagePath" class="img-responsive img-thumbnail" alt="Passport"/>
+        }
+    </div>
+</div>
+<hr/>
+
+        <div class="row">
+            <h2>Savings</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered"  width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>
+                            Date Created
+                        </th>
+                    
+                        <th>
+                            Cash Officer
+                        </th>
+                        <th>
+                            Transaction
+                        </th>
+                        <th>
+                            Amount  
+                        </th>
+                        <th>
+                            Balance 
+                        </th>
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+                    </thead>
+                    
+                    <tbody>
+                        @if (ViewBag.Deposits != null)
+                        {
+                            foreach (var item in ViewBag.Deposits)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.DateCreated
+                                    </td>
+                            
+                                    <td>
+                                        @item.Employee.AspNetUsers.FirstName @item.Employee.AspNetUsers.LastName
+
+                                    </td>
+
+                                    <td>
+                                        @item.TransactionCode
+
+                                    </td>
+
+                                    <td>
+                                        @if (item.TransactionCode == TransactionCode.Deposit)
+                                        {
+                                            <span class="text-success">@item.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">@item.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</span>
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                        @item.Balance.ToString("C", new CultureInfo("HA-LATN-NG"))
+                                    </td>
+                                    <td>
+                                        @if (item.StatusCode == StatusCode.Pending)
+                                        {
+                                            <span class="text-danger">Awaiting Confirmation</span> <br />
+                                            if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Supervisor"))
+                                            {
+                                                @Html.ActionLink("Confirm", "Confirm", "Savings", new { id = item.DepositId }, new { @class = "btn btn-outline-primary btn-sm" })
+                                                @Html.ActionLink("Decline", "Decline", "Savings", new { id = item.DepositId }, new { @class = "btn btn-outline-danger btn-sm" })
+                                            }
+
+                                        }
+                                        else if (item.StatusCode == StatusCode.Declined)
+                                        {
+                                            <span class="btn btn-outline-danger btn-sm">Declined</span>
+                                        }
+
+                                        else
+                                        {
+                                            <span class="btn btn-outline-success btn-sm">Confirmed</span>
+                                        }
+                                    </td>
+
+
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+<hr/><div class="row">
+    <h2>Loans</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>
+                    Date Created
+                </th>
+                    
+                <th>
+                    Loan Officer
+                </th>
+                <th>
+                    Loan Product
+                </th>
+                <th>
+                    Amount
+                </th>
+                    
+                <th>
+                    Receivable
+                </th>
+                <th>
+                    Due Date
+                </th>
+                <th>
+                    Refunds
+                </th>
+                <th>
+                    Status
+                </th>
+
+            </tr>
+            </thead>
+            
+            <tbody>
+            @if (ViewBag.Loans != null)
+            {
+                foreach (var item in ViewBag.Loans)
+                {
+                    <tr>
+                        <td>
+                            @item.DateCreated
+                        </td>
+                           
+                            
+                        <td>
+                            @item.Employee.AspNetUsers.FirstName @item.Employee.AspNetUsers.LastName
+
+                        </td>
+
+                        <td>
+                            @item.Product.Name
+
+                        </td>
+                        <td>
+                            @item.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))
+                        </td>
+
+                            
+                        <td>
+                            @{
+                                var rate = item.Product.Rate;
+                                var interest = (item.Amount * rate) / 100;
+                                var receivable = item.Amount + interest;
+                                @receivable.ToString("C", new CultureInfo("HA-LATN-NG"))
+                            }
+
+                        </td>
+                        <td>
+                            @item.DueDate
+                        </td>
+
+                        <td>
+                                
+                            @if (item.StatusCode == StatusCode.Confirmed)
+                            {
+                                @Html.ActionLink("History", "History", "Loans", new { id = item.LoanId }, new { @class = "btn btn-outline-primary" })
+                            }
+                        </td>
+                        <td>
+                            @if (item.StatusCode == StatusCode.Pending)
+                            {
+                                <span class="text-danger">Awaiting Confirmation</span> <br />
+                                if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Supervisor"))
+                                {
+                                    @Html.ActionLink("Approve", "Approve", "Loans", new {id = item.DepositId}, new {@class = "btn btn-outline-primary btn-sm"}) 
+                                    @Html.ActionLink("Decline", "Decline", "Loans", new {id = item.DepositId}, new {@class = "btn btn-outline-danger btn-sm"})
+                                }
+
+                            }
+                            else if (item.StatusCode == StatusCode.Declined)
+                            {
+                                <span class="btn btn-outline-danger btn-sm">Declined</span>
+                            }
+
+                            else
+                            {
+                                <span class="btn btn-outline-success btn-sm">Confirmed</span>
+                            }
+                        </td>
+
+
+                    </tr>
+
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+   
+ 

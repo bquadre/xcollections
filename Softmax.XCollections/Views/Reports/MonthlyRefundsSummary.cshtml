@@ -1,0 +1,17 @@
+﻿     @{
+         ViewBag.Title = "Montly Refunds Report";
+     }
+ 
+ 
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title
+        </div>
+        <div class="card-body">
+            @Html.Partial("_RefundsMonthlySummaryTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

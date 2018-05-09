@@ -1,0 +1,107 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Softmax.XCollections.Models
+@using Softmax.XCollections.Data.Enums
+
+@model IEnumerable<Softmax.XCollections.Models.GroupedDepositModel>
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewBag.Title = "Savings Customers";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title <i><strong>@ViewData["RecordCount"] </strong> Record(s)</i>
+            <span class="pull-right">
+                @Html.ActionLink("New Savings", "Create", "Savings", null, new { @class = "btn btn-primary" })
+            </span>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        Search: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default btn-sm" /> |
+                        <a asp-action="Index">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["AccountSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Account Number</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Customer</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["BalanceSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Balance</a>
+                        </th>
+                        <th>
+                            
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.UniqueNumber
+                                </td>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @item.Balance.ToString("C", new CultureInfo("HA-LATN-NG"))
+
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink("History", "History", "Savings", new { id = item.CustomerId }, new { @class = "btn btn-outline-primary btn-sm" })
+
+                                    @Html.ActionLink("Insights", "Insights", "Savings", new { id = item.CustomerId }, new { @class = "btn btn-primary btn-sm" })
+                                    
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+            @{
+                var PaginatedModel = (PaginatedList<GroupedDepositModel>)Model;
+
+                string prevDisabled = !PaginatedModel.HasPreviousPage ? "disabled" : "";
+
+                string nextDisabled = !PaginatedModel.HasNextPage ? "disabled" : "";
+            }
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @prevDisabled">
+
+                Previous
+
+            </a>
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @nextDisabled">
+
+                Next
+
+            </a>
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

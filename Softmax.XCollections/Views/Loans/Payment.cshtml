@@ -1,0 +1,82 @@
+﻿@model Softmax.XCollections.Models.RefundModel
+@{
+    ViewBag.Title = "New Loan Refund";
+}
+
+<div class="row" style="padding-top:45px">
+    <div class="col-md-2"></div>
+    <div class="col-md-3">
+        <table class=" table table-bordered">
+            <tr>
+                <th>Customer</th>
+                <td>@ViewBag.Customer</td>
+            </tr>
+            <tr>
+                <th>Account Number</th>
+                <td>@ViewBag.AccountNumber</td>
+            </tr>
+            <tr>
+                <th>Loan</th>
+                <td>@ViewBag.Loan</td>
+            </tr>
+            <tr>
+                <th>Interest</th>
+                <td>@ViewBag.Interest</td>
+            </tr>
+            <tr>
+                <th>Loan Start Date</th>
+                <td>@ViewBag.LoanStartDate</td>
+            </tr>
+            <tr>
+                <th>Loan End Date</th>
+                <td>@ViewBag.LoanEndDate</td>
+            </tr>
+            <tr>
+                <th>Payable</th>
+                <td>@ViewBag.Payable</td>
+            </tr>
+            <tr>
+                <th>Outstanding</th>
+                <td>@ViewBag.OutstandingPayment</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h2>@ViewBag.Title</h2>
+        @using (Html.BeginForm("Payment", "Loans", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="LoanId" Value="@ViewBag.LoanId" />
+            <input type="hidden" name="CustomerId" Value="@ViewBag.CustomerId" />
+            <div class="form-horizontal">
+                <p class="text-danger">
+                    @if (TempData["Error"] != null)
+                    {
+                        @TempData["Error"]
+                    }
+
+                </p>
+                @Html.ValidationSummary(true)
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", placeholder = "Enter Amount", type = "number" })
+                        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                        @Html.ActionLink("Cancel", "Refund", "Loans", new { id = @ViewBag.LoanId }, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+    <div class="col-md-2"></div>
+</div>
+

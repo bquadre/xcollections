@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Softmax.XCollections.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Users List";
+}
+ 
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title
+            <span class="pull-right">
+                @Html.ActionLink("Create New", "Register", "Account", null, new { @class = "btn btn-primary" })
+            </span>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        Search: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default btn-sm" /> |
+                        <a asp-action="Index">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date</a>
+                        </th>
+                        <th>
+                            Unique ID
+                        </th>
+                        <th>
+                            User Type
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Full Name</a>
+                        </th>
+
+                        <th>
+                             Email
+                        </th>
+
+                        <th>
+                            Mobile
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.DateCreated
+                        </td>
+                        <td>
+                            @item.UniqueNumber
+                        </td>
+                        <td>
+                            @item.UserCode
+                        </td>
+                        <td>
+                            @item.FirstName @item.LastName @item.OtherName
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+
+                        <td>
+                            @item.PhoneNumber
+                        </td>
+                        <td>
+                            @if (item.IsActive)
+                    {
+                        <span class="badge badge-success">Active</span>
+            }
+            else
+            {
+                <span class="badge badge-danger">Inactive</span>
+    }
+
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-primary btn-sm" })
+
+                            @Html.ActionLink("Roles", "Roles", "Account", new { id = item.Id }, new { @class = "btn btn-outline-success btn-sm" })
+
+                            @Html.ActionLink("Details", "Details", "Account", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        </td>
+                    </tr>
+
+        }
+    }
+                </tbody>
+            </table>
+            @{
+        var PaginatedModel = (PaginatedList<ApplicationUser>)Model;
+
+        string prevDisabled = !PaginatedModel.HasPreviousPage ? "disabled" : "";
+
+        string nextDisabled = !PaginatedModel.HasNextPage ? "disabled" : "";
+            }
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @prevDisabled">
+
+                Previous
+
+            </a>
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @nextDisabled">
+
+                Next
+            </a>
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

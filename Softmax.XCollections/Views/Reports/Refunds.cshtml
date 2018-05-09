@@ -1,0 +1,39 @@
+﻿   @{
+       ViewBag.Title = "Refunds Report";
+   }
+ 
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - Daily
+        </div>
+        <div class="card-body">
+            @Html.Partial("_RefundsDailyTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - Monthly
+        </div>
+        <div class="card-body">
+            @Html.Partial("_RefundsMonthlyTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - Yearly
+        </div>
+        <div class="card-body">
+            @Html.Partial("_RefundsYearlyTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

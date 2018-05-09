@@ -1,0 +1,38 @@
+﻿@model Softmax.XCollections.Models.DepositModel
+@{
+    ViewBag.Title = "Confirm - Savings";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h3 class="page-header">@ViewBag.Title</h3>
+        <p class="text-danger">Are you sure you want to confirm this?</p>
+        <div>
+            <table class=" table table-bordered">
+                <tr>
+                    <th>Date</th>
+                    <td>@Model.DateCreated</td>
+                </tr>
+                <tr>
+                    <th>Transaction</th>
+                    <td>@Model.TransactionCode</td>
+                </tr>
+                <tr>
+                    <th>Amount</th>
+                    <td>@Model.Amount</td>
+                </tr>
+            </table>
+            @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Confirm" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+}
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

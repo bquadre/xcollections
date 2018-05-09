@@ -1,0 +1,42 @@
+﻿  @{
+      ViewBag.Title = "Savings Report";
+  }
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - Daily
+            <div class="pull-right">
+                @*<input type="text" id="datepicker">*@
+            </div>
+        </div>
+        <div class="card-body">
+            @Html.Partial("_SavingsDailyTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - Monthly
+        </div>
+        <div class="card-body">
+            @Html.Partial("_SavingsMonthlyTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title - Yearly
+        </div>
+        <div class="card-body">
+            @Html.Partial("_SavingsYearlyTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>
+

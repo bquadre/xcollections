@@ -1,0 +1,140 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Softmax.XCollections.Data.Enums
+
+@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<Softmax.XCollections.Models.RefundConfirmModel>
+@{
+    ViewBag.Title = "Refunds Confirmations";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title
+
+        </div>
+        <div class="card-body">
+            <form asp-action="Confirmation" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        Search: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default btn-sm" /> |
+                        <a asp-action="Confirmation">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Confirmation" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date</a>
+
+                        </th>
+                        <th>
+                            Account
+                        </th>
+                        <th>
+                            Customer
+                        </th>
+                        <th>
+                            <a asp-action="Confirmation" asp-route-sortOrder="@ViewData["EmployeeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Supervisor</a>
+                        </th>
+                        <th>
+                            Product
+                        </th>
+                        <th>
+                            <a asp-action="Confirmation" asp-route-sortOrder="@ViewData["AmountSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Amount</a>
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.DateCreated
+                                </td>
+                                <td>
+                                    @item.Customer.AspNetUsers.UniqueNumber
+                                </td>
+
+                                <td>
+                                    @item.Customer.AspNetUsers.FirstName @item.Customer.AspNetUsers.LastName @item.Customer.AspNetUsers.OtherName
+                                </td>
+                                <td>
+                                    @item.Employee.AspNetUsers.FirstName
+
+                                </td>
+
+                                <td>
+                                    @item.Refund.Loan.Product.Name
+
+                                </td>
+                                <td>
+                                    @item.Refund.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))
+                                </td>
+
+                                <td>
+                                    @if (item.Refund.StatusCode == StatusCode.Pending)
+                                    {
+                                        <span>Awaiting Confirmation</span> <br />
+                                    }
+                                    else if (item.Refund.StatusCode == StatusCode.Declined)
+                                    {
+                                        <span class="btn btn-outline-danger btn-sm">Declined</span>
+                                    }
+
+                                    else
+                                    {
+                                        <span class="btn btn-outline-success btn-sm">Confirmed</span>
+                                    }
+
+
+                                </td>
+
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+            @{
+                var PaginatedModel = (PaginatedList<RefundConfirmModel>)Model;
+
+                string prevDisabled = !PaginatedModel.HasPreviousPage ? "disabled" : "";
+
+                string nextDisabled = !PaginatedModel.HasNextPage ? "disabled" : "";
+            }
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @prevDisabled">
+
+                Previous
+
+            </a>
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @nextDisabled">
+
+                Next
+
+            </a>
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

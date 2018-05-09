@@ -1,0 +1,42 @@
+﻿@using System.Globalization
+@model Softmax.XCollections.Models.DepositModel
+@{
+    ViewBag.Title = "Savings Confirmation";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h1 class="page-header">@ViewBag.Title</h1>
+        <h5 class="text-danger">Are you sure you want to confirm this?</h5>
+        <br/>
+        <div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Date</th>
+                    <td>@Model.DateCreated</td>
+                </tr>
+                <tr>
+                    <th>Transaction</th>
+                    <td>@Model.TransactionCode</td>
+                </tr>
+                <tr>
+                    <th>Amount</th>
+                    <td>@Model.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</td>
+                </tr>
+            </table>
+
+
+            @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Confirm" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "ConfirmationRequest")
+        </div>
+}
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

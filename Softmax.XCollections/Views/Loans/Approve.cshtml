@@ -1,0 +1,45 @@
+﻿@using System.Globalization
+@model Softmax.XCollections.Models.LoanModel
+@{
+    ViewBag.Title = "Loan Approval Request";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h3 class="page-header">@ViewBag.Title</h3>
+        <p class="text-danger">Are you sure you want to approve this?</p>
+        <br/>
+        <div>
+            
+            <table class=" table table-bordered">
+                <tr>
+                    <th>Date</th>
+                    <td>@Model.DateCreated</td>
+                </tr>
+                <tr>
+                    <th>Customer</th>
+                    <td>@Model.Customer?.AspNetUsers?.FirstName  @Model.Customer?.AspNetUsers?.OtherName @Model.Customer?.AspNetUsers?.LastName</td>
+                </tr>
+                <tr>
+                    <th>Product</th>
+                    <td>@Model.Product.Name</td>
+                </tr>
+                <tr>
+                    <th>Amount</th>
+                    <td>@Model.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</td>
+                </tr>
+            </table>
+            @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Approve" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "ApprovalRequest")
+        </div>
+}
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

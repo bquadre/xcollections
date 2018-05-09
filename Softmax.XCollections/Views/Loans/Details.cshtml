@@ -1,0 +1,66 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Softmax.XCollections.Models
+@using Softmax.XCollections.Data.Enums
+@model Softmax.XCollections.Models.LoanModel
+@{
+    ViewBag.Title = "Loan - Details";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h3 class="page-header"> @Html.DisplayFor(model => model.Customer.AspNetUsers.FirstName) @Html.DisplayFor(model => model.Customer.AspNetUsers.OtherName) @Html.DisplayFor(model => model.Customer.AspNetUsers.LastName) - @Html.DisplayFor(model => model.Customer.AspNetUsers.UniqueNumber)</h3>
+        <br/>
+        <table class="table-bordered table">
+            <tr>
+                <th>Date Created</th>
+                <td>@Html.DisplayFor(model => model.DateCreated)</td>
+            </tr>
+            <tr>
+                <th>Loan Officer</th>
+                <td> @Html.DisplayFor(model => model.Employee.AspNetUsers.FirstName) @Html.DisplayFor(model => model.Employee.AspNetUsers.OtherName) @Html.DisplayFor(model => model.Employee.AspNetUsers.LastName)</td>
+            </tr>
+            <tr>
+                <th>Product</th>
+                <td>@Html.DisplayFor(model => model.Product.Name)</td>
+            </tr>
+            <tr>
+                <th>Loan</th>
+                <td>@Model.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</td>
+            </tr>
+            <tr>
+                <th>Interest</th>
+                <td>
+                    @{
+                var rate = Model.Product.Rate;
+                var interest = (Model.Amount * rate) / 100;
+                @interest.ToString("C", new CultureInfo("HA-LATN-NG"))
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th>Payable</th>
+                <td>
+
+                    @{
+                var receivable = Model.Amount + interest;
+                @receivable.ToString("C", new CultureInfo("HA-LATN-NG"))
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th>Loan StartDate</th>
+                <td>@Html.DisplayFor(model => model.DateApproved)</td>
+            </tr>
+            <tr>
+                <th>Loan EndDate</th>
+                <td>@Html.DisplayFor(model => model.DueDate)</td>
+            </tr>
+        </table>
+            
+                    @Html.ActionLink("Back to List", "History" , new {id =Model.CustomerId }) <span class="float-right"> @Html.ActionLink("Go to Refunds", "Refund", new  {id=Model.LoanId })</span>
+                 
+        </div>
+    <div class="col-md-4"></div>
+</div>
+

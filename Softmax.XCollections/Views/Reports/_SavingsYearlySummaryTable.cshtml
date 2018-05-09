@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+
+<div class="table-responsive">
+   
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>
+                    Year
+                </th>
+
+                <th>
+                    Total Deposits
+                </th>
+
+                <th>
+                    Total Withdrawals
+                </th>
+                <th>
+                Total Fees
+                </th>
+
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>
+                    Year
+                </th>
+
+
+                <th>
+                    Total Deposits
+                </th>
+
+                <th>
+                    Total Withdrawals
+                </th>
+                <th>
+                    Total Fees
+                </th>
+            </tr>
+        </tfoot>
+        <tbody>
+        @if (ViewBag.YearlySavingsSummary != null)
+        {
+            foreach (var item in ViewBag.YearlySavingsSummary)
+            {
+            <tr>
+                <td>
+                    <a href="~/Reports/YearlySavings/?id=@item.Date" target="_blank">@item.Date </a>
+                </td>
+
+                <td>
+                    @item.Deposits
+                </td>
+
+                <td>
+                    @item.Withdrawals
+                </td>
+                <td>
+                    @item.Incomes
+                </td>
+
+            </tr>
+
+            }
+        }
+        </tbody>
+    </table>
+</div>

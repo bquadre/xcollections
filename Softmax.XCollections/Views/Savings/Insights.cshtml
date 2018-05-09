@@ -1,0 +1,51 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Softmax.XCollections.Models
+@using Softmax.XCollections.Data.Enums
+@model Softmax.XCollections.Models.DepositInsightModel
+@{
+    ViewBag.Title = "Saving - Insights";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h3>@Model.Name - @Model.Account</h3>
+        <br/>
+        <table class="table-bordered table">
+            <tr>
+                <th>Last Deposit</th>
+                <td> @Html.DisplayFor(model => model.LastDepositAmount) (<i>@Html.DisplayFor(model => model.LastDeposit)</i>)</td>
+            </tr>
+            <tr>
+                <th>Last Withdrawal</th>
+                <td> @Html.DisplayFor(model => model.LastWithdrawalAmount) (<i>@Html.DisplayFor(model => model.LastWithdrawal)</i>)</td>
+            </tr>
+            <tr>
+                <th>Total Deposits</th>
+                <td>@Html.DisplayFor(model => model.TotalDeposits) (<i>@Html.DisplayFor(model => model.Deposits)</i>)</td>
+            </tr>
+            <tr>
+                <th>Total Withdrawal</th>
+                <td>@Html.DisplayFor(model => model.TotalWithdrawals) (<i>@Html.DisplayFor(model => model.Withdrawals)</i>)</td>
+            </tr>
+            <tr>
+                <th>Total Fees</th>
+                <td>
+                    @Html.DisplayFor(model => model.TotalFees)
+                </td>
+            </tr>
+            <tr>
+                <th>Available Balance</th>
+                <td>
+                    @Html.DisplayFor(model => model.Balance)
+                </td>
+            </tr>
+
+        </table>
+
+        @Html.ActionLink("Back to List", "Index") <span class="float-right"> @Html.ActionLink("Go to History", "History", new {id=Model.CustomerId})</span>
+
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

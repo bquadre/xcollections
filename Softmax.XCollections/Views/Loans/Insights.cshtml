@@ -1,0 +1,38 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Softmax.XCollections.Models
+@using Softmax.XCollections.Data.Enums
+@model Softmax.XCollections.Models.LoanInsightModel
+@{
+    ViewBag.Title = "Loan - Insights";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h3>@Model.Name - @Model.Account</h3>
+        <br/>
+        <table class="table-bordered table">
+            <tr>
+                <th>Last Loan</th>
+                <td> @Html.DisplayFor(model => model.LastLoanAmount) (<i>@Html.DisplayFor(model => model.LastLoan)</i>)</td>
+            </tr>
+            <tr>
+                <th>Last Refund</th>
+                <td> @Html.DisplayFor(model => model.LastRefundAmount) (<i>@Html.DisplayFor(model => model.LastRefund)</i>)</td>
+            </tr>
+            <tr>
+                <th>Total Loan</th>
+                <td>@Html.DisplayFor(model => model.TotalLoans) (<i>@Html.DisplayFor(model => model.Loans) Loans</i>)</td>
+            </tr>
+            <tr>
+                <th>Total Refund</th>
+                <td>@Html.DisplayFor(model => model.TotalRefunds) (<i>@Html.DisplayFor(model => model.Refunds) Refunds</i>)</td>
+            </tr>
+        </table>
+
+        @Html.ActionLink("Back to List", "Index") <span class="float-right"> @Html.ActionLink("Go to History", "History", new {id=Model.CustomerId})</span>
+
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

@@ -1,0 +1,19 @@
+﻿    @{
+        ViewBag.Title = "Daily Savings Report";
+    }
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title
+            <div class="pull-right">
+                @*<input type="text" id="datepicker">*@
+            </div>
+        </div>
+        <div class="card-body">
+            @Html.Partial("_SavingsDailySummaryTable")
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>
+
+ 

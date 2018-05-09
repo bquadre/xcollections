@@ -1,0 +1,141 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Softmax.XCollections.Data.Enums
+
+@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<Softmax.XCollections.Models.LoanApprovalModel>
+@{
+    ViewBag.Title = "Loan Approvals";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title <i><strong>@ViewData["RecordCount"] </strong> Record(s)</i>
+
+        </div>
+        <div class="card-body">
+            <form asp-action="Approval" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        Search: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default btn-sm" /> |
+                        <a asp-action="Approval">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Approval" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date </a>
+                        </th>
+                        <th>
+                            Account Number
+                        </th>
+                        <th>
+                            Customer
+                        </th>
+                        @if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Manager"))
+                        {
+                            <th>
+                                <a asp-action="Approval" asp-route-sortOrder="@ViewData["EmployeeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Manager</a>
+                            </th>
+                        }
+                        <th>
+                            Product
+                        </th>
+                        <th>
+                            <a asp-action="Approval" asp-route-sortOrder="@ViewData["AmountSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Amount</a>
+                        </th>
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.DateCreated
+                                </td>
+                                <td>
+                                    @item.Customer.AspNetUsers.UniqueNumber
+                                </td>
+
+                                <td>
+                                    @item.Customer.AspNetUsers.FirstName @item.Customer.AspNetUsers.LastName
+                                </td>
+                                @if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Manager"))
+                                {
+                                    <td>
+                                        @item.Employee.AspNetUsers.FirstName
+
+                                    </td>
+                                }
+                                <td>
+                                    @item.Loan.Product.Name
+
+                                </td>
+                                <td>
+                                    @item.Loan.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))
+                                </td>
+
+                                <td>
+                                    @if (item.Loan.StatusCode == StatusCode.Pending)
+                                    {
+
+                                        <span class="text-danger">Awaiting Approval</span> <br />
+                                    }
+                                    else if (item.Loan.StatusCode == StatusCode.Declined)
+                                    {
+                                        <span class="btn btn-outline-danger btn-sm">Declined</span>
+                                    }
+
+                                    else
+                                    {
+                                        <span class="btn btn-outline-success btn-sm">Approved</span>
+                                    }
+                                </td>
+
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+            @{
+                var PaginatedModel = (PaginatedList<LoanApprovalModel>)Model;
+
+                string prevDisabled = !PaginatedModel.HasPreviousPage ? "disabled" : "";
+
+                string nextDisabled = !PaginatedModel.HasNextPage ? "disabled" : "";
+            }
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @prevDisabled">
+
+                Previous
+
+            </a>
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["FilterParam"]"
+               class="btn btn-primary @nextDisabled">
+
+                Next
+
+            </a>
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

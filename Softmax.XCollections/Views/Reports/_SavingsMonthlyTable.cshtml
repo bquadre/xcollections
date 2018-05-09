@@ -1,0 +1,93 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+
+<div class="table-responsive">
+   
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Employee ID
+                </th>
+                <th>
+                    Full Name
+                </th>
+
+                <th>
+                    Deposits
+                </th>
+
+                <th>
+                    Withdrawals
+                </th>
+                <th>
+                    Fees
+                </th>
+
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>
+                    Date Created
+                </th>
+                <th>
+                    Employee ID
+                </th>
+                <th>
+                    Full Name
+                </th>
+
+                <th>
+                    Deposits
+                </th>
+
+                <th>
+                    Withdrawals
+                </th>
+                <th>
+                    Fees
+                </th>
+            </tr>
+        </tfoot>
+        <tbody>
+        @if (ViewBag.MonthlySavings != null)
+        {
+            foreach (var item in ViewBag.MonthlySavings)
+            {
+            <tr>
+                <td>
+                    @item.Date
+                </td>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Deposits
+                </td>
+
+                <td>
+                    @item.Withdrawals
+                </td>
+
+                <td>
+                    @item.Incomes
+                </td>
+
+            </tr>
+
+            }
+        }
+        </tbody>
+    </table>
+</div>

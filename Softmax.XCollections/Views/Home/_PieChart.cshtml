@@ -1,0 +1,48 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<canvas id="myPieChart" width="100" height="70"></canvas>
+<script>
+    var url = "http://stage.standardbenefitng.com/Home/Overall";
+    //var url = "https://localhost:44318/Home/Overall";
+    $.get(url, function(data, status) {
+        pieChart(data);
+    });
+
+    function pieChart(data) {
+        var overall = document.getElementById("myPieChart").getContext('2d');
+        var myDoughnutChart = new Chart(overall, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: data.totals,
+                    backgroundColor: [
+                        'green',
+                        'blue',
+                        'red',
+                        'orange'
+                    ],
+                    borderColor: [
+                        'green',
+                        'blue',
+                        'red',
+                        'orange'
+                       
+                    ],
+                    borderWidth: 1
+                }],
+
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [
+                    'Deposits',
+                    'Withdrawals',
+                    'Loans',
+                    'Incomes'
+
+                ]
+            },
+            options: {}
+        });
+    }
+</script>

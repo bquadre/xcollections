@@ -1,0 +1,100 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<canvas id="myBarChart" width="100" height="50"></canvas>
+<script>
+    var url = "http://stage.standardbenefitng.com/Home/Monthly";
+    //var url = "https://localhost:44318/Home/Monthly";
+    $.get(url, function(data, status) {
+            barChart(data);
+        });
+
+    function barChart(data) {
+        var monthly = document.getElementById("myBarChart").getContext('2d');
+        var chart = new Chart(monthly,
+            {
+                type: 'bar',
+                data: {
+                    labels: data.dates,
+                    datasets: [
+                        {
+                            label: 'Deposits',
+                            data: data.deposits,
+                            backgroundColor: [
+                                'green',
+                                'green',
+                                'green',
+                                'green',
+                                'green',
+                                'green'
+                            ],
+                            borderColor: [
+                                'green',
+                                'green',
+                                'green',
+                                'green',
+                                'green',
+                                'green'
+                            ],
+                            borderWidth: 0
+                        }, {
+                            label: 'Withdrawals',
+                            data: data.withdrawals,
+                            backgroundColor: [
+                                'blue',
+                                'blue',
+                                'blue',
+                                'blue',
+                                'blue',
+                                'blue'
+                            ],
+                            borderColor: [
+                                'blue',
+                                'blue',
+                                'blue',
+                                'blue',
+                                'blue',
+                                'blue'
+                            ],
+                            borderWidth: 0
+                        },
+                        {
+                            label: 'Fees',
+                            data: data.incomes,
+                            backgroundColor: [
+                                'orange',
+                                'orange',
+                                'orange',
+                                'orange',
+                                'orange',
+                                'orange'
+                            ],
+                            borderColor: [
+                                'orange',
+                                'orange',
+                                'orange',
+                                'orange',
+                                'orange',
+                                'orange'
+                            ],
+                            borderWidth: 0
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
+    }
+        
+        
+</script>

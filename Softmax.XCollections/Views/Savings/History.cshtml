@@ -1,0 +1,158 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Softmax.XCollections.Models
+@using Softmax.XCollections.Data.Enums
+
+@model IEnumerable<Softmax.XCollections.Models.DepositModel>
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewBag.Title = "Savings History";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-header">
+            <i class="fa fa-table"></i> @ViewBag.Title <i><strong>@ViewData["RecordCount"] </strong> Record(s)</i>
+            @*<span class="pull-right">
+                @Html.ActionLink("New Post", "Create", "Savings", new { id=ViewData["CustomerId"]}, new { @class = "btn btn-primary" })
+            </span>*@
+        </div>
+        <div class="card-body">
+            <form asp-action="History" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        Search: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default btn-sm" /> |
+                        <a asp-action="History">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th colspan="8">
+                           <h3> @ViewData["Name"] - @ViewData["Account"]</h3>
+                        </th>
+
+                    </tr>
+                    <tr>
+                        <th>
+                          <a asp-action="History" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date</a>
+                        </th>
+                        <th>
+                    Cash Officer
+                </th>
+                        <th>
+                            Transaction
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Balance
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.DateCreated
+                                </td>
+                               
+                                    <td>
+                                        @item.Employee.AspNetUsers.FirstName
+
+                                
+                                <td>
+                                    @item.TransactionCode
+
+                                </td>
+
+                                <td>
+                                    @if (item.TransactionCode == TransactionCode.Deposit)
+                                    {
+                                        <span class="text-success">@item.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger">@item.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</span>
+                                    }
+
+
+                                </td>
+                                <td>
+                                    @item.Balance.ToString("C", new CultureInfo("HA-LATN-NG"))
+                                </td>
+                                <td>
+                                    @if (item.StatusCode == StatusCode.Pending)
+                                    {
+                                        <span class="text-danger">Awaiting Confirmation</span> <br />
+                                        @*if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Supervisor"))
+                                        {
+                                            @Html.ActionLink("Confirm", "Confirm", "Savings", new { id = item.DepositId }, new { @class = "btn btn-outline-primary btn-sm" })
+                                            @Html.ActionLink("Decline", "Decline", "Savings", new { id = item.DepositId }, new { @class = "btn btn-outline-danger btn-sm" })
+                                        }*@
+
+                                    }
+                                    else if (item.StatusCode == StatusCode.Declined)
+                                    {
+                                        <span class="btn btn-outline-danger btn-sm">Declined</span>
+                                    }
+
+                                    else
+                                    {
+                                        <span class="btn btn-outline-success btn-sm">Confirmed</span>
+                                    }
+
+
+                                </td>
+
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+            @{
+
+                var PaginatedModel = (PaginatedList<DepositModel>)Model;
+
+                string prevDisabled = !PaginatedModel.HasPreviousPage ? "disabled" : "";
+
+                string nextDisabled = !PaginatedModel.HasNextPage ? "disabled" : "";
+
+            }
+
+            <a asp-action="History"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn btn-primary @prevDisabled">
+
+                Previous
+
+            </a>
+
+            <a asp-action="History"
+               asp-route-sortOrder="@ViewData["CurrentSortOrder"]"
+               asp-route-page="@(PaginatedModel.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn btn-primary @nextDisabled">
+
+                Next
+
+            </a>
+            <span class="float-right"><a asp-action="Index"><i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i></a></span>
+        </div>
+        <div class="card-footer small text-muted">Last Update @DateTime.Now</div>
+    </div>
+</div>

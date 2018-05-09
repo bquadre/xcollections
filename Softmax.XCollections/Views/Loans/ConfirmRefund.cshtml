@@ -1,0 +1,45 @@
+﻿@using System.Globalization
+@model Softmax.XCollections.Models.RefundModel
+@{
+    ViewBag.Title = "Loan Refund Comfirmation";
+}
+<div class="row" style="padding-top:45px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h1 class="page-header">@ViewBag.Title</h1>
+        <h5>Are you sure you want to confirm this?</h5>
+        <br />
+        <div>
+
+            <table class=" table table-bordered">
+                <tr>
+                    <th>Date</th>
+                    <td>@Model.DateCreated</td>
+                </tr>
+                <tr>
+                    <th>Customer</th>
+                    <td>@Model.Loan.Customer?.AspNetUsers?.FirstName  @Model.Loan.Customer?.AspNetUsers?.OtherName @Model.Loan.Customer?.AspNetUsers?.LastName</td>
+                </tr>
+                <tr>
+                    <th>Product</th>
+                    <td>@Model.Loan.Product.Name</td>
+                </tr>
+                <tr>
+                    <th>Amount</th>
+                    <td>@Model.Amount.ToString("C", new CultureInfo("HA-LATN-NG"))</td>
+                </tr>
+            </table>
+            @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Confirm" class="btn btn-primary" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+    }
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
